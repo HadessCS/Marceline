@@ -77,7 +77,9 @@ if viper.GetString("node") != "" {
 }
 
 func main() {
-
+	
+        banner() // Display banner
+	
 	port := "9200"
 		
 if viper.GetString("node") != "" {
