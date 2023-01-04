@@ -283,14 +283,24 @@ func displayHelp() {
 
 Vulnerable-Elasticsearch
 
-      --node [Vulnerable node]    Vulnerable node server
-
-	 
-	 
+          --node [Vulnerable node]     Vulnerable node server
+	  --full                       Full Dump
+	  --indice                     Dump Indice Node
+	  --port                       Elastic Port Address
+	  --help                       Display help
+	  --version                    Display version
 	  `
 	fmt.Println(applicationName + " " + applicationVersion)
 	fmt.Println(message)
 }
 
+func banner() {
+	banner := `
+	____ _    ____ ____ ___ _ ____    ___  _  _ _  _ ___  
+	|___ |    |__| [__   |  | |       |  \ |  | |\/| |__] 
+	|___ |___ |  | ___]  |  | |___    |__/ |__| |  | |  
 
+`
+	fmt.Println(banner)
+}
 
