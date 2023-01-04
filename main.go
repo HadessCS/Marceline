@@ -283,8 +283,6 @@ func checkErr(err error) {
 func displayHelp() {
 	message := `
 
-Vulnerable-Elasticsearch
-
           --node [Vulnerable node]     Vulnerable node server
 	  --full                       Full Dump
 	  --indice                     Dump Indice Node
