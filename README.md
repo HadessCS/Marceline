@@ -5,7 +5,7 @@
 
 ## Overview
 
-A tools for dumping data from websites that use Elasticsearch.
+A tool for dumping data from websites that use Elasticsearch.
 
 Brought to you by:
 
