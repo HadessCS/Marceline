@@ -17,7 +17,7 @@ Brought to you by:
 
 ## Command Line Options
 ```
-    --node [Vulnerable node]     Vulnerable node server
+          --node [Vulnerable node]     Vulnerable node server
 	  --full                       Full Dump
 	  --indice                     Dump Indice Node
 	  --port                       Elastic Port Address
