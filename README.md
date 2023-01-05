@@ -5,7 +5,7 @@
 
 ## Overview
 
-A tools for exfiltration with mutliple way.
+A tools for dumping data from websites that use Elasticsearch.
 
 Brought to you by:
 
