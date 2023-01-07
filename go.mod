@@ -1,4 +1,4 @@
-module github.com/HadessCS/Vulnerable-Elasticsearch
+module github.com/HadessCS/Marceline
 
 go 1.17
 
