@@ -74,10 +74,10 @@ if viper.GetString("node") != "" {
 		fmt.Println(command)
 
 	}
-
+        dumpPath = viper.GetString("o")
 
 }
-dumpPath = viper.GetString("o")
+
 
 func main() {
 	
