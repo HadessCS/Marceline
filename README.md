@@ -7,7 +7,7 @@
 
 ## Overview
 
-A tool for dumping data from websites that use Elasticsearch.
+A tools for dumping data from websites that use Elasticsearch.
 
 Brought to you by:
 
@@ -25,5 +25,6 @@ Brought to you by:
 	  --port                       Elastic Port Address
 	  --help                       Display help
 	  --version                    Display version
+	  -o                           Path to store dump files
 ```
 
