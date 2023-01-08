@@ -28,6 +28,7 @@ var (
 	platform        string
 	project_id      string
 	api_secret_key  string
+	dumpPath        string
 	doEncode        bool
 	doEncodeForTest bool
 	slice1M         bool
@@ -39,6 +40,7 @@ func init() {
 	flag.String("node", "", "Get Node Server")
 	flag.String("indice", "", "Dump Indice Node")
 	flag.String("port", "", "Elastic Port Address")
+	flag.String("o", "", "Path to store dump files")
 	flag.Bool("full", false, "Full Dump")
 	flag.Bool("help", false, "Display help")
 	flag.Bool("version", false, "Display version information")
@@ -75,6 +77,7 @@ if viper.GetString("node") != "" {
 
 
 }
+dumpPath = viper.GetString("o")
 
 func main() {
 	
@@ -162,7 +165,7 @@ fmt.Println("[*] Checking if port "+port+" is open on", command)
 		}
 
 		// Write the response body to a file
-		file, err := os.Create("dump.json")
+		file, err := os.Create(dumpPath + "/dump.json")
 		if err != nil {
 			// Handle error
 		}
@@ -225,7 +228,7 @@ fmt.Println("[*] Checking if port "+port+" is open on", command)
 
 
 			// Write the response body to a file
-			file, err := os.Create("fulldump.json")
+			file, err := os.Create(dumpPath + "/fulldump.json")
 			if err != nil {
 				// Handle error
 			}
