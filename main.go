@@ -29,6 +29,7 @@ var (
 	project_id      string
 	api_secret_key  string
 	dumpPath        string
+	outputName      string
 	doEncode        bool
 	doEncodeForTest bool
 	slice1M         bool
@@ -41,6 +42,7 @@ func init() {
 	flag.String("indice", "", "Dump Indice Node")
 	flag.String("port", "", "Elastic Port Address")
 	flag.String("o", "", "Path to store dump files")
+	flag.String("f", "", "Name for output file")
 	flag.Bool("full", false, "Full Dump")
 	flag.Bool("help", false, "Display help")
 	flag.Bool("version", false, "Display version information")
@@ -75,6 +77,7 @@ if viper.GetString("node") != "" {
 
 	}
         dumpPath = viper.GetString("o")
+	outputName = viper.GetString("f")
 
 }
 
@@ -165,7 +168,7 @@ fmt.Println("[*] Checking if port "+port+" is open on", command)
 		}
 
 		// Write the response body to a file
-		file, err := os.Create(dumpPath + "/dump.json")
+		file, err := os.Create(dumpPath + "/" + outputName)
 		if err != nil {
 			// Handle error
 		}
@@ -228,7 +231,7 @@ fmt.Println("[*] Checking if port "+port+" is open on", command)
 
 
 			// Write the response body to a file
-			file, err := os.Create(dumpPath + "/fulldump.json")
+			file, err := os.Create(dumpPath + "/" + outputName)
 			if err != nil {
 				// Handle error
 			}
@@ -292,6 +295,9 @@ func displayHelp() {
 	  --port                       Elastic Port Address
 	  --help                       Display help
 	  --version                    Display version
+	  -o                           Path to store dump files
+	  -f                           Name for output file
+	  
 	  `
 	fmt.Println(applicationName + " " + applicationVersion)
 	fmt.Println(message)
