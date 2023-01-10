@@ -26,5 +26,6 @@ Brought to you by:
 	  --help                       Display help
 	  --version                    Display version
 	  -o                           Path to store dump files
+	  -f                           Name for output file
 ```
 
