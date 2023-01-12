@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 	"net"
@@ -30,6 +31,7 @@ var (
 	api_secret_key  string
 	dumpPath        string
 	outputName      string
+	ipAddr          string
 	doEncode        bool
 	doEncodeForTest bool
 	slice1M         bool
@@ -80,6 +82,68 @@ if viper.GetString("node") != "" {
 	outputName = viper.GetString("f")
 
 }
+
+
+
+
+func elastic() {
+
+	fmt.Print("Enter an IP address: ")
+	fmt.Scan(&ipAddr)
+
+	ip := net.ParseIP(ipAddr)
+	if ip == nil {
+		fmt.Println("Invalid IP address")
+		return
+	}
+
+	ipv4 := ip.To4()
+	if ipv4 == nil {
+		fmt.Println("Invalid IPv4 address")
+		return
+	}
+
+	ipRange := &net.IPNet{
+		IP:   ipv4,
+		Mask: net.CIDRMask(24, 32),
+	}
+	fmt.Println("IP range:", ipRange)
+
+	fmt.Println("Starting Scan for Hunt Elastic.Please Wait until Scan Complete")
+	ips := ipRange.IP.Mask(ipRange.Mask)
+	total := 0
+	for ; ipRange.Contains(ips); inc(ips) {
+		total++
+	}
+	bar := pb.StartNew(total)
+	var elasticIPs []string
+	for ip := ipRange.IP.Mask(ipRange.Mask); ipRange.Contains(ip); inc(ip) {
+		// Check if port 9200 is open
+		_, err := net.DialTimeout("tcp", fmt.Sprintf("%s:9200", ip), 1*time.Second)
+		if err == nil {
+			elasticIPs = append(elasticIPs, ip.String())
+
+		}
+		bar.Increment()
+	}
+	bar.Finish()
+	fmt.Println("Scan finished. IPs that use Elastic are:")
+	for _, ip := range elasticIPs {
+		fmt.Println(ip)
+	}
+
+}
+
+// increment the last octet of an IP address
+func inc(ip net.IP) {
+	for j := len(ip) - 1; j >= 0; j-- {
+		ip[j]++
+		if ip[j] > 0 {
+			break
+		}
+	}
+}
+
 
 
 func main() {
@@ -267,6 +331,7 @@ fmt.Println("[*] Checking if port "+port+" is open on", command)
 	}else{
 
 		displayHelp()
+	        elastic()
 	}
 	
 
@@ -375,8 +440,8 @@ func banner() {
                                                                                              ...,;;;;;;;;;;;;..l0KKKKKKKKKKKKKKKKKKKKKk,.';;;;;;;;;;;'...                                                                                                 
                                                                                               ..';;;;;;;;;;;;;..;kKKKKKKKKKKKKKKKKKK0o'.,;;;;;;;;;;;,...                                                                                                  
                                                                                               ...,;;;;;;;;;;;;;,..ckKKKKKKKKKKKKKK0d;.';;;;;;;;;;;;;'..                                                                                                   
-                                                                                               ...;;;;;;;;;;;;;;;'..;ok0KKKKKKK0xl,.';;;;;;;;;;;;;;,...                                                                          .........................
-                                                                                               ...,;;;;;;;;;;;;;;;;,...;ldxxdoc,..';;;;;;;;;;;;;;;;'..                                                                          .:lllllllllccccccllcllllll
+                                                                                               ...;;;;;;;;;;;;;;;'..;ok0KKKKKKK0xl,.';;;;;;;;;;;;;;,...                                                                      
+                                                                                               ...,;;;;;;;;;;;;;;;;,...;ldxxdoc,..';;;;;;;;;;;;;;;;'..                                                                        
 
 
 `
